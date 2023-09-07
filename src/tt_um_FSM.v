@@ -19,9 +19,9 @@ module tt_um_FSM (
     
     // reg [3:0] flags = 4'b0000;
     // PWM
-    reg pwm;
-    parameter sd = 39;
-    reg [13:0] counter = 0;
+    reg pwm = 0;
+    // parameter sd = 39;
+    // reg [13:0] counter = 0;
 
     wire [3:0] motors;
 
@@ -50,20 +50,20 @@ module tt_um_FSM (
     always @(posedge clk) begin
         if (reset) begin
             state <= Standby;
-            counter <= 0;
+            // counter <= 0;
         end
         else
             state <= next_state;
 
         //calculating duty cycle
-        counter <= counter + 1;
-        if(counter <= uio_in * sd) 
-            pwm = 1;
-        else 
-            pwm = 0;
-        //refresh every 1ms
-        if(counter >= 10000) 
-            counter = 0;
+        // counter <= counter + 1;
+        // if(counter <= uio_in * sd) 
+        //     pwm = 1;
+        // else 
+        //     pwm = 0;
+        // //refresh every 1ms
+        // if(counter >= 10000) 
+        //     counter = 0;
     end
 
     always @* begin
