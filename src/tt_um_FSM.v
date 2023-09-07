@@ -56,7 +56,6 @@ module tt_um_FSM (
         end
         else
             state <= next_state;
-        stepCountBit <= stepCountBit;
         //calculating duty cycle
         counter <= counter + 1;
         if(counter <= stepCountBit * sd) 
