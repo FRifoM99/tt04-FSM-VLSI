@@ -31,7 +31,7 @@ module tt_um_FSM (
 
     reg [1:0] state, next_state;
 
-    assign uo_out = {motors, 4'b000};
+    assign uo_out = {motors, 3'b000, pwm};
 
     assign uio_out = 8'b0000_0000;
 
@@ -127,5 +127,4 @@ module tt_um_FSM (
             end
         endcase
     end
-    
 endmodule
