@@ -32,7 +32,7 @@ module tt_um_FSM (
 
     assign uo_out = {motors, 4'b000};
 
-    // assign uio_out = 8'b0000_0000;
+    assign uio_out = 8'b0000_0000;
 
     assign motors[0] = motorB_i;
     assign motors[1] = motorB_d;
@@ -58,9 +58,9 @@ module tt_um_FSM (
         //calculating duty cycle
         // counter <= counter + 1;
         if(counter <= uio_in * sd) 
-            pwm = 1;
+            pwm <= 1;
         else 
-            pwm = 0;
+            pwm <= 0;
         // //refresh every 1ms
         if(counter >= 10000) 
             counter = 0;
