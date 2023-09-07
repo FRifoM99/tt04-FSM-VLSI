@@ -52,7 +52,7 @@ module tt_um_FSM (
         if (reset) begin
             state <= Standby;
             stepCountBit <= uio_in;
-            // counter <= 0;
+            counter <= 0;
         end
         else
             state <= next_state;
