@@ -20,8 +20,8 @@ module tt_um_FSM (
     // reg [3:0] flags = 4'b0000;
     // PWM
     reg pwm = 0;
-    // parameter sd = 39;
-    // reg [13:0] counter = 0;
+    parameter sd = 39;
+    reg [13:0] counter = 0;
 
     wire [3:0] motors;
 
@@ -32,7 +32,7 @@ module tt_um_FSM (
 
     assign uo_out = {motors, 4'b000};
 
-    assign uio_out = 8'b0000_0000;
+    // assign uio_out = 8'b0000_0000;
 
     assign motors[0] = motorB_i;
     assign motors[1] = motorB_d;
@@ -57,13 +57,13 @@ module tt_um_FSM (
 
         //calculating duty cycle
         // counter <= counter + 1;
-        // if(counter <= uio_in * sd) 
-        //     pwm = 1;
-        // else 
-        //     pwm = 0;
+        if(counter <= uio_in * sd) 
+            pwm = 1;
+        else 
+            pwm = 0;
         // //refresh every 1ms
-        // if(counter >= 10000) 
-        //     counter = 0;
+        if(counter >= 10000) 
+            counter = 0;
     end
 
     always @* begin
