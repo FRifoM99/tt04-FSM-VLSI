@@ -1,5 +1,23 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg)
 
+# Micro Robot FSM
+
+## Finite State Machine (FSM)
+
+At its core, the chip employs a Finite State Machine (FSM) that receives inputs from sensors located on the robot's front and sides, The FSM's states are tuned to facilitate forward motion, left and right rotations, and obstacle avoidance, allowing robot navigation in confined spaces.
+
+## H-Bridge Motor Control
+
+The output of the chip are meant to be used with an H-bridge motor driver circuit, enabling bidirectional motor control. This feature grants the robot the ability to move forward and execute precise turns.
+
+## 8-Bit PWM Generator
+
+ The control of motor speed is achieved through the 8-bit Pulse Width Modulation (PWM) generator. This PWM signal can be setted via eight input pins. Additionally, the PWM output pin provides a means for real-time monitoring, control, or testing of motor speed, facilitating precise adjustments during robot operation.
+
+## User Configuration and Integration
+
+The Micro Robot Control Chip is designed for ease of integration into robotic systems, this chip is compatible with various microcontroller platforms, making it adaptable to a wide range of robotic applications.
+
 # What is Tiny Tapeout?
 
 TinyTapeout is an educational project that aims to make it easier and cheaper than ever to get your digital designs manufactured on a real chip!
