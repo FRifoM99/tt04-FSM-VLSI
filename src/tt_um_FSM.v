@@ -19,6 +19,7 @@ module tt_um_FSM (
     
     // reg [3:0] flags = 4'b0000;
     // PWM
+    reg [7:0] stepCountBit;
     reg pwm = 0;
     parameter sd = 39;
     reg [13:0] counter = 0;
@@ -50,14 +51,15 @@ module tt_um_FSM (
     always @(posedge clk) begin
         if (reset) begin
             state <= Standby;
+            stepCountBit <= uio_in;
             // counter <= 0;
         end
         else
             state <= next_state;
-
+        stepCountBit <= stepCountBit;
         //calculating duty cycle
-        // counter <= counter + 1;
-        if(counter <= uio_in * sd) 
+        counter <= counter + 1;
+        if(counter <= stepCountBit * sd) 
             pwm <= 1;
         else 
             pwm <= 0;
