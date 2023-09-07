@@ -8,6 +8,7 @@ segments = [ 63, 6, 91, 79, 102, 109, 124, 7, 127, 103 ]
 @cocotb.test()
 async def test_FSM(dut):
     dut._log.info("start")
+    
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
 

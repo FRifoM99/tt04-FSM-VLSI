@@ -10,20 +10,27 @@ module tt_um_FSM (
     input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
+
+    
     wire reset;
     wire f_sensor, l_sensor, r_sensor;
     wire [4:0] data_in;
     reg motorA_d, motorA_i, motorB_d, motorB_i;
     
-    reg [3:0] flags = 4'b0000;
+    // reg [3:0] flags = 4'b0000;
+    // PWM
+    reg pwm;
+    parameter sd = 39;
+    reg [13:0] counter = 0;
+
     wire [3:0] motors;
 
-    assign uio_oe = 8'b1111_1111; //todos output
+    assign uio_oe = 8'b0000_0000; //todos input
     assign {data_in, f_sensor, l_sensor, r_sensor} = ui_in;
 
     reg [1:0] state, next_state;
 
-    assign uo_out = {motors, flags[3:0]};
+    assign uo_out = {motors, 4'b000};
 
     assign uio_out = 8'b0000_0000;
 
@@ -43,18 +50,29 @@ module tt_um_FSM (
     always @(posedge clk) begin
         if (reset)
             state <= Standby;
+            counter <= 0;
         else
             state <= next_state;
+
+    //calculating duty cycle
+    counter <= counter + 1;
+    if(counter <= uio_in * sd) 
+        pwm = 1;
+    else 
+        pwm = 0;
+    //refresh every 1ms
+    if(counter >= 10000) 
+        counter = 0;
     end
 
     always @* begin
         next_state = Standby;
         case (state)
             Standby: begin
-                motorB_i = 0;
-                motorB_d = 0;
-                motorA_i = 0;
-                motorA_d = 0;
+                motorB_i = 0 & pwm; 
+                motorB_d = 0 & pwm;
+                motorA_i = 0 & pwm;
+                motorA_d = 0 & pwm;
 
                 if (f_sensor == 0 && l_sensor == 0 && r_sensor == 0) begin
                     next_state = goforward;
@@ -73,10 +91,10 @@ module tt_um_FSM (
                 end
             end
             goforward: begin
-                motorB_i = 0;
-                motorB_d = 1;
-                motorA_i = 0;
-                motorA_d = 1;
+                motorB_i = 0 & pwm;
+                motorB_d = 1 & pwm;
+                motorA_i = 0 & pwm;
+                motorA_d = 1 & pwm;
 
                 if (f_sensor == 0 && l_sensor == 0 && r_sensor == 0) begin
                     next_state = state;
@@ -86,20 +104,20 @@ module tt_um_FSM (
                 end
             end
             goright: begin 
-                motorB_i = 1;
-                motorB_d = 0;
-                motorA_i = 0;
-                motorA_d = 1;
+                motorB_i = 1 & pwm;
+                motorB_d = 0 & pwm;
+                motorA_i = 0 & pwm;
+                motorA_d = 1 & pwm;
 
                 if (l_sensor == 1 && r_sensor == 0) begin
                     next_state = state;
                 end
             end
             goleft: begin 
-                motorB_i = 0;
-                motorB_d = 1;
-                motorA_i = 1;
-                motorA_d = 0;
+                motorB_i = 0 & pwm;
+                motorB_d = 1 & pwm;
+                motorA_i = 1 & pwm;
+                motorA_d = 0 & pwm;
 
                 if (l_sensor == 0 && r_sensor == 1) begin
                     next_state = state;
