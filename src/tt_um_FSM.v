@@ -22,7 +22,7 @@ module tt_um_FSM (
     reg [7:0] stepCountBit;
     reg pwm = 0;
     parameter sd = 39;
-    reg [13:0] counter = 0;
+    reg [13:0] counter;
 
     wire [3:0] motors;
 
@@ -64,7 +64,7 @@ module tt_um_FSM (
             pwm <= 0;
         // //refresh every 1ms
         if(counter >= 10000) 
-            counter = 0;
+            counter <= 0;
     end
 
     always @* begin
