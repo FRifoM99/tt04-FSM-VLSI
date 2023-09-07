@@ -48,21 +48,22 @@ module tt_um_FSM (
     parameter goleft = 2'b11;
 
     always @(posedge clk) begin
-        if (reset)
+        if (reset) begin
             state <= Standby;
             counter <= 0;
+        end
         else
             state <= next_state;
 
-    //calculating duty cycle
-    counter <= counter + 1;
-    if(counter <= uio_in * sd) 
-        pwm = 1;
-    else 
-        pwm = 0;
-    //refresh every 1ms
-    if(counter >= 10000) 
-        counter = 0;
+        //calculating duty cycle
+        counter <= counter + 1;
+        if(counter <= uio_in * sd) 
+            pwm = 1;
+        else 
+            pwm = 0;
+        //refresh every 1ms
+        if(counter >= 10000) 
+            counter = 0;
     end
 
     always @* begin
