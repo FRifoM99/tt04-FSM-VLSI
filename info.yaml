@@ -20,7 +20,7 @@ yaml_version: 4
 #
 # Here is a great example: https://github.com/davidsiaw/tt02-davidsiaw-stackcalc/blob/38c5647f83aad2aec675d566aa3d67b98f0aac81/info.yaml
 documentation: 
-  author:       "Lucas Irribara, Felipe Rifo"
+  author:       "Lucas Irribarra, Felipe Rifo"
   title:        "Microrobotics FSM"
   language:     "Verilog"
   description:  "Simple FSM for Micro-srobots"
